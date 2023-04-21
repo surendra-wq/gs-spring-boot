@@ -25,7 +25,7 @@ steps:
 - script: ls -al && chmod 700 build.sh && sudo bash ./build.sh && ls -al
   displayName: 'Run the build script'
   
-- script: ls -al && mv ROOT.war ROOT$(Build.BuildID).war && ls -al
+- script: ls -al && mv ROOT.WAR ROOT$(Build.BuildID).war && ls -al
   displayName: 'List Files & Rename Root.war'
   
 - task: CopyFiles@2
