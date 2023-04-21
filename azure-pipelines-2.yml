@@ -10,22 +10,22 @@ pool:
   vmImage: ubuntu-latest
 
 steps:
-- task: Maven@3
-  displayName: 'Maven app/pom.xml'
-  inputs:
-    mavenPomFile: 'app/pom.xml'
-    codeCoverageToolOption: Cobertura
+- script: echo "Testing The Pipelines"
+  displayName: 'pipeline Tesing'
 
-- task: CopyFiles@2
-  displayName: 'Copy Files to: $(build.artifactstagingdirectory)'
-  inputs:
-    SourceFolder: '$(system.defaultworkingdirectory)'
-    Contents: '**/*.jar'
-    TargetFolder: '$(build.artifactstagingdirectory)'
-  condition: succeededOrFailed()
+- script: echo $(Build.BuildID)
+  displayName: 'Display The Build-ID'
 
-- task: PublishBuildArtifacts@1
-  displayName: 'Publish Artifact: drop'
-  inputs:
-    PathtoPublish: '$(build.artifactstagingdirectory)'
-  condition: succeededOrFailed()
+- script: ls -al && pwd
+  displayName: 'List Files & current working Directory'
+
+- script: sudo apt update && sudo apt install -y openjdk-8-jdk && java -version
+  displayName: 'Installing openjdk 8 and check Javaversion'
+
+- script: ls -al && chmod 700 build.sh && sudo bash ./build.sh && ls -al
+  displayName: 'Run the build script'
+  
+- script: ls -al && mv ROOT.war ROOT$(Build.BuildID).war && ls -al
+  displayName: 'List Files & Rename Root.war'
+
+- script: cd /home/vm/myagent/_work/1/s
