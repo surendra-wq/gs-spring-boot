@@ -25,11 +25,8 @@ steps:
 - script: ls -al && chmod 700 build.sh && sudo bash ./build.sh && ls -al
   displayName: 'Run the build script'
   
-- script: ls -al && mv Root.war ROOT$(Build.BuildID).war && ls -al
+- script: ls -al && mv ROOT.war ROOT$(Build.BuildID).war && ls -al
   displayName: 'List Files & Rename Root.war'
-
-- script: cd /home/vm/myagent/_work/1/s && sudo rm -rf src
-  displayName: 'Remove Files'
   
 - task: CopyFiles@2
   inputs:
