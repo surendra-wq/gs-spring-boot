@@ -28,4 +28,15 @@ steps:
 - script: ls -al && mv ROOT.war ROOT$(Build.BuildID).war && ls -al
   displayName: 'List Files & Rename Root.war'
 
-- script: cd /home/vm/myagent/_work/1/s
+- script: cd /home/vm/myagent/_work/1/s && sudo rm -rf src
+  displayName: 'Remove Files'
+  
+- task: CopyFiles@2
+  inputs:
+    contents: 'ROOT$(Build.BuildID).war'
+    TargetFolder: '$(Build.ArtifactStagingDirectory)'
+    overwrite: true
+  displayName: 'copying WAR file to ArtifactStagingDirectory)'
+  
+- script: ls -al $(Build.ArtifactStagingDirectory)
+  displayName: 'List Build Artifact Staging Folder'
